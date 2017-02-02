@@ -93,5 +93,11 @@
   (thunk #t)
   "polar conversion-equality test" 1)
 
+(define scores-final (map second q-list))
 
-q-list
+; TO-DO Write out.
+(define output (open-output-file "final.score" #:exists 'replace))
+(require "csv-write.rkt")
+(write-row scores-final output)
+(close-output-port output)
+
