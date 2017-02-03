@@ -1,6 +1,31 @@
 #lang racket
+(require "dummy.rkt")
 (require "main.rkt")
 (require "scoring.rkt")
+
+(define wrong-answer void)
+
+(if-defined reduce (void) (define reduce wrong-answer))
+(if-defined triangle (void) (define triangle wrong-answer))
+(if-defined square (void) (define square wrong-answer))
+(if-defined rectangle (void) (define rectangle wrong-answer))
+(if-defined circle (void) (define circle wrong-answer))
+(if-defined compose (void) (define compose wrong-answer))
+(if-defined compose* (void) (define compose* wrong-answer))
+(if-defined area (void) (define area wrong-answer))
+(if-defined perimeter (void) (define perimeter wrong-answer))
+(if-defined rectangular (void) (define rectangular wrong-answer))
+(if-defined polar (void) (define polar wrong-answer))
+(if-defined list-length (void) (define list-length wrong-answer))
+(if-defined list-map (void) (define list-map wrong-answer))
+(if-defined get-x (void) (define get-x wrong-answer))
+(if-defined get-y (void) (define get-y wrong-answer))
+(if-defined get-r (void) (define get-r 'not-defined))
+(if-defined get-t (void) (define get-t 'not-defined))
+(if-defined polar-to-rectangular (void) (define polar-to-rectangular 'not-defined))
+(if-defined rectangular-to-polar (void) (define rectangular-to-polar 'not-defined))
+(if-defined point-equal? (void) (define point-equal? 'not-defined))
+
 
 (define binary-and 
   (lambda (x y)
@@ -61,7 +86,6 @@
   (lambda (radius)
     (* 2 pi radius)))
 
-
 (run-testcase (thunk (area (triangle 3))) (thunk (equilateral-triangle-area 3)) "Triangle
               area test" 1)
 
@@ -100,4 +124,8 @@
 (require "csv-write.rkt")
 (write-row scores-final output)
 (close-output-port output)
+
+(define headers (open-output-file "final.header" #:exists 'replace))
+(write-row (map first q-list) headers)
+(close-output-port headers)
 
